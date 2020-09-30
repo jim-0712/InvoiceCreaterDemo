@@ -10,6 +10,11 @@
 		CFAF691C251C52CA001BC781 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF691B251C52CA001BC781 /* HistoryViewController.swift */; };
 		CFAF691E251C5406001BC781 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF691D251C5406001BC781 /* StorageManager.swift */; };
 		CFAF6924251C736C001BC781 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF6923251C736C001BC781 /* HistoryTableViewCell.swift */; };
+		CFAF692E25241CE5001BC781 /* LaunchScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF692D25241CE5001BC781 /* LaunchScreenManager.swift */; };
+		CFAF692F25241CE5001BC781 /* LaunchScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF692D25241CE5001BC781 /* LaunchScreenManager.swift */; };
+		CFAF693125241EB5001BC781 /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFAF693025241EB5001BC781 /* LaunchView.xib */; };
+		CFAF693225241EB5001BC781 /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFAF693025241EB5001BC781 /* LaunchView.xib */; };
+		CFAF693325241EB5001BC781 /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFAF693025241EB5001BC781 /* LaunchView.xib */; };
 		CFB3670A25062CDB00ED2BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3670925062CDB00ED2BFD /* AppDelegate.swift */; };
 		CFB3670C25062CDB00ED2BFD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3670B25062CDB00ED2BFD /* SceneDelegate.swift */; };
 		CFB3670E25062CDB00ED2BFD /* InvoiceBuliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3670D25062CDB00ED2BFD /* InvoiceBuliderViewController.swift */; };
@@ -46,6 +51,8 @@
 		CFAF691B251C52CA001BC781 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		CFAF691D251C5406001BC781 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		CFAF6923251C736C001BC781 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		CFAF692D25241CE5001BC781 /* LaunchScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenManager.swift; sourceTree = "<group>"; };
+		CFAF693025241EB5001BC781 /* LaunchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchView.xib; sourceTree = "<group>"; };
 		CFB3670625062CDB00ED2BFD /* invoiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = invoiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFB3670925062CDB00ED2BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFB3670B25062CDB00ED2BFD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +104,7 @@
 			children = (
 				CFB3670F25062CDB00ED2BFD /* Main.storyboard */,
 				CFAF6923251C736C001BC781 /* HistoryTableViewCell.swift */,
+				CFAF693025241EB5001BC781 /* LaunchView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -125,6 +133,7 @@
 				CFB3673E25071A1B00ED2BFD /* PDFPreviewViewController.swift */,
 				CFB3670D25062CDB00ED2BFD /* InvoiceBuliderViewController.swift */,
 				CFAF691B251C52CA001BC781 /* HistoryViewController.swift */,
+				CFAF692D25241CE5001BC781 /* LaunchScreenManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFB3671925062CDD00ED2BFD /* LaunchScreen.storyboard in Resources */,
+				CFAF693125241EB5001BC781 /* LaunchView.xib in Resources */,
 				CFB3671625062CDD00ED2BFD /* Assets.xcassets in Resources */,
 				CFB3671125062CDB00ED2BFD /* Main.storyboard in Resources */,
 			);
@@ -298,6 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFAF693225241EB5001BC781 /* LaunchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFAF693325241EB5001BC781 /* LaunchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +337,7 @@
 				CFAF691C251C52CA001BC781 /* HistoryViewController.swift in Sources */,
 				CFAF691E251C5406001BC781 /* StorageManager.swift in Sources */,
 				CFB3671425062CDB00ED2BFD /* invoiceDemo.xcdatamodeld in Sources */,
+				CFAF692E25241CE5001BC781 /* LaunchScreenManager.swift in Sources */,
 				CFB3670C25062CDB00ED2BFD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFAF692F25241CE5001BC781 /* LaunchScreenManager.swift in Sources */,
 				CFB3672F25062CDD00ED2BFD /* invoiceDemoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

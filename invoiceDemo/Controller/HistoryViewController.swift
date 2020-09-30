@@ -16,7 +16,7 @@ class HistoryViewController: UIViewController {
     var invoiceHistory: [Histories] = [] {
         didSet {
             DispatchQueue.main.async {
-                self.noDataLabel.isHidden = self.invoiceHistory.count == 0
+                self.noDataLabel.isHidden = !(self.invoiceHistory.count == 0)
                 self.historyTableView.reloadData()
             }
         }

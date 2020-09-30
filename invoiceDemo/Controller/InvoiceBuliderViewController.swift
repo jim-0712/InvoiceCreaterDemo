@@ -9,8 +9,7 @@
 import UIKit
 
 class InvoiceBuliderViewController: UIViewController {
-    
-    
+
     @IBOutlet weak var trackTitleLabel: UILabel!
     @IBOutlet weak var trackContentLabel: UILabel!
     @IBOutlet weak var editorTitleLabel: UILabel!
@@ -77,7 +76,7 @@ class InvoiceBuliderViewController: UIViewController {
     
     @objc func printPress() {
         checkTheRule()
-//        if isEdit && isBuyer {
+        if isEdit && isBuyer {
             if let track = trackContentLabel.text,
                 let editor = editorTextField.text,
                 let productName = productNameTextField.text,
@@ -96,7 +95,6 @@ class InvoiceBuliderViewController: UIViewController {
                 let pdfData = pdfCreator.createFlyer()
                 let vc = UIActivityViewController(activityItems: [pdfData], applicationActivities: [])
                 vc.completionWithItemsHandler = { (type,completed,items,error) in
-                    guard let type = type else { return }
                     if completed  {
                         guard let track = self.trackContentLabel.text else { return }
                         let index = track.index(track.startIndex, offsetBy: 3)
@@ -104,16 +102,16 @@ class InvoiceBuliderViewController: UIViewController {
                         if let interger = Int(number) {
                             UserDefaults.standard.set(interger+1, forKey: "number")
                             if let root = (((UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController)?.visibleViewController as? InvoiceBuliderViewController) {
-                                 NotificationCenter.default.post(name: Notification.Name("save"), object: nil)
+                                NotificationCenter.default.post(name: Notification.Name("save"), object: nil)
                                 root.viewWillAppear(true)
                             }
                         }
                     }
                 }
                 present(vc, animated: true, completion: nil)
-//            } else {
-//                showAlarm("請先填寫資料")
-//            }
+            }
+        } else {
+            showAlarm("請先填寫資料")
         }
     }
     
