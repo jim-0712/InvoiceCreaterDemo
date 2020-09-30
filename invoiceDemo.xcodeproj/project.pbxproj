@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CFAF691C251C52CA001BC781 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF691B251C52CA001BC781 /* HistoryViewController.swift */; };
+		CFAF691E251C5406001BC781 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF691D251C5406001BC781 /* StorageManager.swift */; };
+		CFAF6924251C736C001BC781 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF6923251C736C001BC781 /* HistoryTableViewCell.swift */; };
 		CFB3670A25062CDB00ED2BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3670925062CDB00ED2BFD /* AppDelegate.swift */; };
 		CFB3670C25062CDB00ED2BFD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3670B25062CDB00ED2BFD /* SceneDelegate.swift */; };
 		CFB3670E25062CDB00ED2BFD /* InvoiceBuliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3670D25062CDB00ED2BFD /* InvoiceBuliderViewController.swift */; };
@@ -40,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CFAF691B251C52CA001BC781 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		CFAF691D251C5406001BC781 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		CFAF6923251C736C001BC781 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		CFB3670625062CDB00ED2BFD /* invoiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = invoiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFB3670925062CDB00ED2BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFB3670B25062CDB00ED2BFD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +92,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CFAF6917251C51F7001BC781 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CFB3670F25062CDB00ED2BFD /* Main.storyboard */,
+				CFAF6923251C736C001BC781 /* HistoryTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CFAF6918251C520C001BC781 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				CFB3673C250716E000ED2BFD /* PDFCreater.swift */,
+				CFAF691D251C5406001BC781 /* StorageManager.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		CFAF6919251C5221001BC781 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CFB3674025072E6F00ED2BFD /* ImageViewExtension.swift */,
+				CFB3674225075A4800ED2BFD /* StringExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		CFAF691A251C5232001BC781 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CFB3673E25071A1B00ED2BFD /* PDFPreviewViewController.swift */,
+				CFB3670D25062CDB00ED2BFD /* InvoiceBuliderViewController.swift */,
+				CFAF691B251C52CA001BC781 /* HistoryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		CFB366FD25062CDB00ED2BFD = {
 			isa = PBXGroup;
 			children = (
@@ -109,18 +152,16 @@
 		CFB3670825062CDB00ED2BFD /* invoiceDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CFAF691A251C5232001BC781 /* Controller */,
+				CFAF6919251C5221001BC781 /* Extension */,
+				CFAF6918251C520C001BC781 /* Module */,
+				CFAF6917251C51F7001BC781 /* View */,
 				CFB3670925062CDB00ED2BFD /* AppDelegate.swift */,
 				CFB3670B25062CDB00ED2BFD /* SceneDelegate.swift */,
-				CFB3670D25062CDB00ED2BFD /* InvoiceBuliderViewController.swift */,
-				CFB3670F25062CDB00ED2BFD /* Main.storyboard */,
 				CFB3671525062CDD00ED2BFD /* Assets.xcassets */,
 				CFB3671725062CDD00ED2BFD /* LaunchScreen.storyboard */,
 				CFB3671A25062CDD00ED2BFD /* Info.plist */,
 				CFB3671225062CDB00ED2BFD /* invoiceDemo.xcdatamodeld */,
-				CFB3673C250716E000ED2BFD /* PDFCreater.swift */,
-				CFB3673E25071A1B00ED2BFD /* PDFPreviewViewController.swift */,
-				CFB3674025072E6F00ED2BFD /* ImageViewExtension.swift */,
-				CFB3674225075A4800ED2BFD /* StringExtension.swift */,
 			);
 			path = invoiceDemo;
 			sourceTree = "<group>";
@@ -276,10 +317,13 @@
 			files = (
 				CFB3673D250716E000ED2BFD /* PDFCreater.swift in Sources */,
 				CFB3670E25062CDB00ED2BFD /* InvoiceBuliderViewController.swift in Sources */,
+				CFAF6924251C736C001BC781 /* HistoryTableViewCell.swift in Sources */,
 				CFB3673F25071A1B00ED2BFD /* PDFPreviewViewController.swift in Sources */,
 				CFB3674125072E6F00ED2BFD /* ImageViewExtension.swift in Sources */,
 				CFB3674325075A4800ED2BFD /* StringExtension.swift in Sources */,
 				CFB3670A25062CDB00ED2BFD /* AppDelegate.swift in Sources */,
+				CFAF691C251C52CA001BC781 /* HistoryViewController.swift in Sources */,
+				CFAF691E251C5406001BC781 /* StorageManager.swift in Sources */,
 				CFB3671425062CDB00ED2BFD /* invoiceDemo.xcdatamodeld in Sources */,
 				CFB3670C25062CDB00ED2BFD /* SceneDelegate.swift in Sources */,
 			);

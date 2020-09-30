@@ -18,6 +18,7 @@ class PDFCreater {
     let tax: String
     let total: String
     let buyer: String
+    var createTime: String = ""
     
     init(track: String, editor: String, productName: String, money: String, tax: String, total: String, buyer: String) {
         self.track = track
@@ -37,8 +38,6 @@ class PDFCreater {
         ]
         let format =  UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
-        
-        // 2
         let pageWidth = 300
         let pageHeight = 400
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
@@ -107,6 +106,9 @@ class PDFCreater {
         } else {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+            let dateFormatterSimple = DateFormatter()
+            dateFormatterSimple.dateFormat = "yyyy/MM/dd HH:mm"
+            createTime = dateFormatterSimple.string(from: date)
             return dateFormatter.string(from: date)
         }
     }
@@ -136,13 +138,13 @@ class PDFCreater {
                               height: timeSize.height)
         timeTitle.draw(in: timeRect)
         
-        let productNameString = NSAttributedString(string: "商品名稱:\(productName)", attributes: Attributes)
-        let productSize = productNameString.size()
-        let productRect = CGRect(x: pageRect.width / 2 + 15,
+        let editorString = NSAttributedString(string: "賣方:\(editor)", attributes: Attributes)
+        let editorSize = editorString.size()
+        let editorRect = CGRect(x: pageRect.width / 2 + 15,
                                  y: bottom + 4,
-                                 width: productSize.width,
-                                 height: productSize.height)
-        productNameString.draw(in: productRect)
+                                 width: editorSize.width,
+                                 height: editorSize.height)
+        editorString.draw(in: editorRect)
         
         return timeRect.origin.y + timeRect.height
     }
@@ -150,14 +152,14 @@ class PDFCreater {
     func addPrice(pageRect: CGRect, bottom: CGFloat) -> CGFloat {
         let Font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
         let Attributes = [NSAttributedString.Key.font: Font]
-        let taxTitle = NSAttributedString(string: "稅額:\(tax)", attributes: Attributes)
-        let taxSize = taxTitle.size()
+        let number = Int.random(in: 1000..<9999)
+        let randomTitle = NSAttributedString(string: "隨機碼:\(number)", attributes: Attributes)
+        let taxSize = randomTitle.size()
         let taxRect = CGRect(x: 30,
                               y: bottom,
                               width: taxSize.width,
                               height: taxSize.height)
-        taxTitle.draw(in: taxRect)
-        
+        randomTitle.draw(in: taxRect)
         let totalString = NSAttributedString(string: "總額:\(total)", attributes: Attributes)
         let totalSize = totalString.size()
         let totalRect = CGRect(x: pageRect.width / 2 + 15,

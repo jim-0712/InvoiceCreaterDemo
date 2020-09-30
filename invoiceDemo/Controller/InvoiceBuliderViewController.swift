@@ -29,10 +29,21 @@ class InvoiceBuliderViewController: UIViewController {
     @IBOutlet weak var printButton: UIButton!
     var isEdit = false
     var isBuyer = false
+    var invoiceData: PDFCreater?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        if UserDefaults.standard.integer(forKey: "number") == 0 {
+            trackContentLabel.text = "AB-10000000"
+        } else {
+             let number = UserDefaults.standard.integer(forKey: "number")
+            trackContentLabel.text = "AB-\(number)"
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(saveToCore), name: Notification.Name("save"), object: nil)
+        
         editorTextField.delegate = self
         productNameTextField.delegate = self
         buyerTextField.delegate = self
@@ -40,12 +51,24 @@ class InvoiceBuliderViewController: UIViewController {
         printButton.addTarget(self, action: #selector(printPress), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("asdadsada")
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
+    @objc func saveToCore() {
+        guard let invoice = invoiceData else { return }
+        StorageManager.shared.saveContext(history: invoice)
+        print("save")
+    }
+    
     @objc func previewPress(){
-        if isEdit {
+        checkTheRule()
+        if isEdit && isBuyer {
             performSegue(withIdentifier: "previewSegue", sender: nil)
         } else {
             showAlarm("請先填完資料")
@@ -53,17 +76,44 @@ class InvoiceBuliderViewController: UIViewController {
     }
     
     @objc func printPress() {
-        if let track = trackContentLabel.text, let editor = editorTextField.text, let productName = productNameTextField.text, let money = priceContentLabel.text, let tax = taxContentLabel.text, let total = totalPriceContentLabel.text, let buyer = buyerTextField.text {
-            let pdfCreator = PDFCreater(track: track,
-                                        editor: editor,
-                                        productName: productName,
-                                        money: money,
-                                        tax: tax,
-                                        total: total,
-                                        buyer: buyer)
-            let pdfData = pdfCreator.createFlyer()
-            let vc = UIActivityViewController(activityItems: [pdfData], applicationActivities: [])
-            present(vc, animated: true, completion: nil)
+        checkTheRule()
+//        if isEdit && isBuyer {
+            if let track = trackContentLabel.text,
+                let editor = editorTextField.text,
+                let productName = productNameTextField.text,
+                let money = priceContentLabel.text,
+                let tax = taxContentLabel.text,
+                let total = totalPriceContentLabel.text,
+                let buyer = buyerTextField.text {
+                let pdfCreator = PDFCreater(track: track,
+                                            editor: editor,
+                                            productName: productName,
+                                            money: money,
+                                            tax: tax,
+                                            total: total,
+                                            buyer: buyer)
+                invoiceData = pdfCreator
+                let pdfData = pdfCreator.createFlyer()
+                let vc = UIActivityViewController(activityItems: [pdfData], applicationActivities: [])
+                vc.completionWithItemsHandler = { (type,completed,items,error) in
+                    guard let type = type else { return }
+                    if completed  {
+                        guard let track = self.trackContentLabel.text else { return }
+                        let index = track.index(track.startIndex, offsetBy: 3)
+                        let number = track[index..<track.endIndex]
+                        if let interger = Int(number) {
+                            UserDefaults.standard.set(interger+1, forKey: "number")
+                            if let root = (((UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController)?.visibleViewController as? InvoiceBuliderViewController) {
+                                 NotificationCenter.default.post(name: Notification.Name("save"), object: nil)
+                                root.viewWillAppear(true)
+                            }
+                        }
+                    }
+                }
+                present(vc, animated: true, completion: nil)
+//            } else {
+//                showAlarm("請先填寫資料")
+//            }
         }
     }
     
@@ -100,7 +150,6 @@ class InvoiceBuliderViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "previewSegue" {
             guard let vc = segue.destination as? PDFPreviewViewController else { return }
-            if isEdit && isBuyer {
                 if let track = trackContentLabel.text, let editor = editorTextField.text, let productName = productNameTextField.text, let money = priceContentLabel.text, let tax = taxContentLabel.text, let total = totalPriceContentLabel.text, let buyer = buyerTextField.text {
                     let pdfCreator = PDFCreater(track: track,
                                                 editor: editor,
@@ -110,9 +159,43 @@ class InvoiceBuliderViewController: UIViewController {
                                                 total: total,
                                                 buyer: buyer)
                     vc.documentData = pdfCreator.createFlyer()
-                }
             }
         }
+    }
+    
+    func checkTheRule() {
+        guard let content = editorTextField.text else {
+            isEdit = false
+            return
+        }
+        
+        if content.isEmpty || !isPureInt(content) || !checkEditRule(content) {
+            isEdit = false
+            return
+        }
+        
+        isEdit = true
+        guard let buyerContent = buyerTextField.text else {
+            isBuyer = false
+            return
+        }
+        
+        if buyerContent.isEmpty {
+            isEdit = false
+        }
+        
+        switch buyerContent.findChineseCharacters {
+        case .all:
+            isBuyer = !(buyerContent.count > 20)
+        case .notFound:
+            isBuyer = true
+        case .contain:
+            isBuyer = false
+            return
+        }
+        
+        let numbersRange = buyerContent.rangeOfCharacter(from: .decimalDigits)
+        isBuyer = numbersRange == nil
     }
     
 }
@@ -125,6 +208,11 @@ extension InvoiceBuliderViewController: UITextFieldDelegate {
                 showAlarm("統編不得為空")
                 isEdit = false
                 return
+            }
+            
+            if content.isEmpty {
+                showAlarm("統編不得為空")
+                isEdit = false
             }
             
             if !isPureInt(content) {
@@ -153,21 +241,32 @@ extension InvoiceBuliderViewController: UITextFieldDelegate {
                 return
             }
             
+            if content.isEmpty {
+                showAlarm("買方不得為空")
+                isEdit = false
+            }
+            
             switch content.findChineseCharacters {
             case .all:
-                isBuyer = true
+                if content.count > 20 {
+                    isBuyer = false
+                    showAlarm("字數不得超過20字")
+                } else {
+                    isBuyer = true
+                }
+                
             case .notFound:
                 isBuyer = true
             case .contain:
                 isBuyer = false
-                showAlarm("買方只能完全中文或全英文")
+                showAlarm("買方只能全中文或全英文(不能包含空格及特殊符號)")
                 return
             }
             
             let numbersRange = content.rangeOfCharacter(from: .decimalDigits)
             isBuyer = numbersRange == nil
             if numbersRange != nil {
-               showAlarm("買方只能完全中文或全英文")
+                showAlarm("買方只能完全中文或全英文")
             }
             
         default:
